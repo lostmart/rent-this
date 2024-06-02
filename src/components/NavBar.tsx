@@ -12,6 +12,7 @@ import profileDfault from "@/assets/images/profile.png"
 const NavBar = () => {
 	const [isMobileMenuOpen, setMobileMenu] = useState(false)
 	const [isProfileMenuOpen, setProfileMenu] = useState(false)
+	const [isLoggedIn, setIsLoggedIn] = useState(false)
 
 	const pathName = usePathname()
 
@@ -76,30 +77,38 @@ const NavBar = () => {
 								>
 									Cars
 								</Link>
-								<Link
-									href="/carsPage/addCar"
-									className={`${
-										pathName === "/carsPage/addCar" ? "bg-black " : ""
-									} text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}
-								>
-									Add Car
-								</Link>
+								{isLoggedIn && (
+									<Link
+										href="/carsPage/addCar"
+										className={`${
+											pathName === "/carsPage/addCar" ? "bg-black " : ""
+										} text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}
+									>
+										Add Car
+									</Link>
+								)}
 							</div>
 						</div>
 					</div>
 
 					{/* <!-- Right Side Menu (Logged Out) --> */}
-					<div className="hidden md:block md:ml-6">
-						<div className="flex items-center">
-							<button className="flex items-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2">
-								<FaGoogle className="mr-2" />
-								<span>Login or Register</span>
-							</button>
+					{!isLoggedIn && (
+						<div className="hidden md:block md:ml-6">
+							<div className="flex items-center">
+								<button className="flex items-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2">
+									<FaGoogle className="mr-2" />
+									<span>Login or Register</span>
+								</button>
+							</div>
 						</div>
-					</div>
+					)}
 
 					{/* <!-- Right Side Menu (Logged In) --> */}
-					<div className="absolute inset-y-0 right-0 flex items-center pr-2 md:static md:inset-auto md:ml-6 md:pr-0">
+					<div
+						className={`${
+							isLoggedIn ? "" : "hidden "
+						} absolute inset-y-0 right-0 flex items-center pr-2 md:static md:inset-auto md:ml-6 md:pr-0`}
+					>
 						<Link href="/messages" className="relative group">
 							<button
 								type="button"
@@ -210,18 +219,21 @@ const NavBar = () => {
 					>
 						Cars
 					</Link>
-					<Link
-						href="/carsPage/addCar"
-						className={`${
-							pathName === "/carsPage/addCar" ? "bg-black " : ""
-						} text-white block hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}
-					>
-						Add Car
-					</Link>
-					<button className="flex items-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2 my-4">
-						<FaGoogle className="mr-2" />
-						<span>Login or Register</span>
-					</button>
+					{isLoggedIn ? (
+						<Link
+							href="/carsPage/addCar"
+							className={`${
+								pathName === "/carsPage/addCar" ? "bg-black " : ""
+							} text-white block hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}
+						>
+							Add Car
+						</Link>
+					) : (
+						<button className="flex items-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2 my-4">
+							<FaGoogle className="mr-2" />
+							<span>Login or Register</span>
+						</button>
+					)}
 				</div>
 			</div>
 		</nav>
