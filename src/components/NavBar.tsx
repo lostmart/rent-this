@@ -137,13 +137,13 @@ const NavBar = () => {
 								role="menu"
 								aria-orientation="vertical"
 								aria-labelledby="user-menu-button"
-								tabIndex="-1"
+								tabIndex={-1}
 							>
 								<a
 									href="/profile.html"
 									className="block px-4 py-2 text-sm text-gray-700"
 									role="menuitem"
-									tabIndex="-1"
+									tabIndex={-1}
 									id="user-menu-item-0"
 								>
 									Your Profile
@@ -152,7 +152,7 @@ const NavBar = () => {
 									href="saved-properties.html"
 									className="block px-4 py-2 text-sm text-gray-700"
 									role="menuitem"
-									tabIndex="-1"
+									tabIndex={-1}
 									id="user-menu-item-2"
 								>
 									Saved Properties
@@ -161,7 +161,7 @@ const NavBar = () => {
 									href="#"
 									className="block px-4 py-2 text-sm text-gray-700"
 									role="menuitem"
-									tabIndex="-1"
+									tabIndex={-1}
 									id="user-menu-item-2"
 								>
 									Sign Out
