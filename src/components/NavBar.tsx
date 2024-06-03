@@ -12,7 +12,7 @@ import profileDfault from "@/assets/images/profile.png"
 const NavBar = () => {
 	const [isMobileMenuOpen, setMobileMenu] = useState(false)
 	const [isProfileMenuOpen, setProfileMenu] = useState(false)
-	const [isLoggedIn, setIsLoggedIn] = useState(false)
+	const [isLoggedIn, setIsLoggedIn] = useState(true)
 
 	const pathName = usePathname()
 

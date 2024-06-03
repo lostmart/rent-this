@@ -1,11 +1,14 @@
-import Link from "next/link"
+import Footer from "@/components/Footer"
+import Hero from "@/components/Hero"
+import InfoBoxes from "@/components/InfoBoxes"
 
 const Home = () => {
 	return (
-		<div className="flex min-h-screen flex-col items-center justify-between p-24">
-			<h2>homa page</h2>
-			<Link href="addPage">Add page</Link>
-		</div>
+		<>
+			<Hero />
+			<InfoBoxes />
+			<Footer />
+		</>
 	)
 }
 
