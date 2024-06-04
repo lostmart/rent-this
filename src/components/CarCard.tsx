@@ -1,15 +1,33 @@
+import { log } from "console"
 import Image from "next/image"
 import Link from "next/link"
 
+import TCar from "@/types/CarsType"
+
 type CarCardProps = {
-	children: React.ReactNode
+	carDetails: TCar
 }
 
-const CarCard = ({ children }) => {
+const CarCard = ({ carDetails }: CarCardProps) => {
+	const getRateDisplay = () => {
+		const { rates } = carDetails
+		if (rates.monthly) {
+			return `${rates.monthly.toLocaleString()}/mo`
+		}
+		if (rates.weekly) {
+			return `${rates.weekly.toLocaleString()}/wk`
+		}
+		if (rates.nightly) {
+			return `${rates.nightly.toLocaleString()}/night`
+		} else {
+			return "something went wrong with the price !!"
+		}
+	}
+
 	return (
 		<div className="rounded-xl shadow-md relative">
 			<Image
-				src="/properties/a1.jpg"
+				src={`/properties/${carDetails.images[0]}`}
 				height={0}
 				width={0}
 				sizes="100vw"
@@ -18,25 +36,26 @@ const CarCard = ({ children }) => {
 			/>
 			<div className="p-4">
 				<div className="text-left md:text-center lg:text-left mb-6">
-					<div className="text-gray-600">Apartment</div>
-					<h3 className="text-xl font-bold">Boston Commons Retreat</h3>
+					<div className="text-gray-600">{carDetails.type}</div>
+					<h3 className="text-xl font-bold">{carDetails.name}</h3>
 				</div>
 				<h3 className="absolute top-[10px] right-[10px] bg-white px-4 py-2 rounded-lg text-blue-500 font-bold text-right md:text-center lg:text-right">
-					$4,200/mo
+					$ {getRateDisplay()}
 				</h3>
 
 				<div className="flex justify-center gap-4 text-gray-500 mb-4">
 					<p>
-						<i className="fa-solid fa-bed"></i> 3
-						<span className="md:hidden lg:inline">Beds</span>
+						<i className="fa-solid fa-bed"></i> {carDetails.beds}
+						<span className="md:hidden lg:inline"> Beds</span>
 					</p>
 					<p>
-						<i className="fa-solid fa-bath"></i> 2
-						<span className="md:hidden lg:inline">Baths</span>
+						<i className="fa-solid fa-bath"></i> {carDetails.baths}
+						<span className="md:hidden lg:inline"> Baths</span>
 					</p>
 					<p>
 						<i className="fa-solid fa-ruler-combined"></i>
-						1,500 <span className="md:hidden lg:inline">sqft</span>
+						{carDetails.square_feet}{" "}
+						<span className="md:hidden lg:inline">sqft</span>
 					</p>
 				</div>
 

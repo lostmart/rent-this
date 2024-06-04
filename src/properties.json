@@ -262,8 +262,7 @@
 			"Pet-Friendly"
 		],
 		"rates": {
-			"nightly": 475,
-			"weekly": 2000
+			"nightly": 475
 		},
 		"seller_info": {
 			"name": "Robert Anderson",
