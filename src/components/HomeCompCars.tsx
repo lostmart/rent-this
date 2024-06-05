@@ -19,7 +19,7 @@ const HomeCompCars = () => {
 					</h2>
 					<div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 						{!threeRandomCars.length ? (
-							<p>no found</p>
+							<p>No Data Found ...</p>
 						) : (
 							threeRandomCars.map((car) => (
 								<CarCard key={car._id} carDetails={car} />
