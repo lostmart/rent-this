@@ -1,13 +1,14 @@
 import conectDB from "@/utils/db_connection"
+import Car from "@/app/models/Property"
 
+// GET /api/cars
 export const GET = async () => {
 	try {
 		await conectDB()
-		const msg = {
-			message: "Hello baby",
-		}
 
-		return new Response(JSON.stringify(msg), {
+		const cars = await Car.find()
+
+		return new Response(JSON.stringify(cars), {
 			status: 200,
 		})
 	} catch (error) {
