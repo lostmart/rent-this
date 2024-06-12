@@ -1,5 +1,5 @@
 import conectDB from "@/utils/db_connection"
-import Car from "@/app/models/Property"
+import Car from "@/models/Property"
 
 // GET /api/cars
 export const GET = async () => {
