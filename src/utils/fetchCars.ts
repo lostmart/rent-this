@@ -3,6 +3,8 @@ import CarsType from "@/types/CarsType"
 const apiDomain = process.env.NEXT_API_DOMAIN || null
 
 export async function fetchCars(): Promise<CarsType | []> {
+	console.log(apiDomain)
+
 	try {
 		// handle no domain available
 		if (!apiDomain) {

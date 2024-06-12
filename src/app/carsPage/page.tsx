@@ -1,6 +1,7 @@
 import React from "react"
 import CarCard from "@/components/CarCard"
 
+
 import TCar from "@/types/CarsType"
 
 import { fetchCars } from "@/utils/fetchCars"
