@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { usePathname } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
@@ -9,12 +9,35 @@ import { FaGoogle } from "react-icons/fa"
 import logo from "@/assets/images/logo-white.png"
 import profileDfault from "@/assets/images/profile.png"
 
+import {
+	signIn,
+	signOut,
+	useSession,
+	getProviders,
+	ClientSafeProvider,
+} from "next-auth/react"
+
+type Providers = Record<string, ClientSafeProvider>
+
+type AuthProps = {
+	providers: Providers | null
+}
+
 const NavBar = () => {
+	const { data: session } = useSession()
 	const [isMobileMenuOpen, setMobileMenu] = useState(false)
 	const [isProfileMenuOpen, setProfileMenu] = useState(false)
-	const [isLoggedIn, setIsLoggedIn] = useState(true)
+	const [providers, setProviders] = useState<AuthProps | Providers | null>(null)
 
 	const pathName = usePathname()
+
+	useEffect(() => {
+		const setAuthProviders = async () => {
+			const res = await getProviders()
+			setProviders(res)
+		}
+		setAuthProviders()
+	}, [])
 
 	return (
 		<nav className="bg-blue-700 border-b border-blue-500">
@@ -77,7 +100,7 @@ const NavBar = () => {
 								>
 									Cars
 								</Link>
-								{isLoggedIn && (
+								{session && (
 									<Link
 										href="/carsPage/addCar"
 										className={`${
@@ -92,13 +115,20 @@ const NavBar = () => {
 					</div>
 
 					{/* <!-- Right Side Menu (Logged Out) --> */}
-					{!isLoggedIn && (
+					{!session && (
 						<div className="hidden md:block md:ml-6">
 							<div className="flex items-center">
-								<button className="flex items-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2">
-									<FaGoogle className="mr-2" />
-									<span>Login or Register</span>
-								</button>
+								{providers &&
+									Object.values(providers).map((provider, i) => (
+										<button
+											onClick={() => signIn(provider.id)}
+											key={i}
+											className="flex items-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
+										>
+											<FaGoogle className="mr-2" />
+											<span>Login or Register</span>
+										</button>
+									))}
 							</div>
 						</div>
 					)}
@@ -106,7 +136,7 @@ const NavBar = () => {
 					{/* <!-- Right Side Menu (Logged In) --> */}
 					<div
 						className={`${
-							isLoggedIn ? "" : "hidden "
+							session ? "" : "hidden "
 						} absolute inset-y-0 right-0 flex items-center pr-2 md:static md:inset-auto md:ml-6 md:pr-0`}
 					>
 						<Link href="/messages" className="relative group">
@@ -219,7 +249,7 @@ const NavBar = () => {
 					>
 						Cars
 					</Link>
-					{isLoggedIn ? (
+					{session ? (
 						<Link
 							href="/carsPage/addCar"
 							className={`${
@@ -229,10 +259,17 @@ const NavBar = () => {
 							Add Car
 						</Link>
 					) : (
-						<button className="flex items-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2 my-4">
-							<FaGoogle className="mr-2" />
-							<span>Login or Register</span>
-						</button>
+						providers &&
+						Object.values(providers).map((provider, i) => (
+							<button
+								onClick={() => signIn(provider.id)}
+								key={i}
+								className="flex items-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
+							>
+								<FaGoogle className="mr-2" />
+								<span>Login or Register</span>
+							</button>
+						))
 					)}
 				</div>
 			</div>

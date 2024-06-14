@@ -2,7 +2,7 @@
 import { SessionProvider } from "next-auth/react"
 
 type AuthProviderProps = {
-	children: any
+	children: JSX.Element[] | JSX.Element
 }
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
