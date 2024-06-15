@@ -28,7 +28,7 @@ const NavBar = () => {
 
 	const profileImage = session?.user?.image
 
-	const [isMobileMenuOpen, setMobileMenu] = useState(false)
+	const [isMobileMenuOpen, setIsProfileMenuOpen] = useState(false)
 	const [isProfileMenuOpen, setProfileMenu] = useState(false)
 	const [providers, setProviders] = useState<AuthProps | Providers | null>(null)
 
@@ -49,7 +49,7 @@ const NavBar = () => {
 					<div className="absolute inset-y-0 left-0 flex items-center md:hidden">
 						{/* <!-- Mobile menu button--> */}
 						<button
-							onClick={() => setMobileMenu((prev) => !prev)}
+							onClick={() => setIsProfileMenuOpen((prev) => !prev)}
 							type="button"
 							id="mobile-dropdown-button"
 							className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
@@ -222,6 +222,10 @@ const NavBar = () => {
 									Saved Properties
 								</Link>
 								<button
+									onClick={() => {
+										setIsProfileMenuOpen(false)
+										signOut()
+									}}
 									className="block px-4 py-2 text-sm text-gray-700"
 									role="menuitem"
 									tabIndex={-1}
