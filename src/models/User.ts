@@ -7,15 +7,15 @@ const UserSchema = new Schema<TUser>(
 		email: {
 			type: String,
 			unique: true, // Changed to boolean
-			required: [true, "Email is required"],
+			//required: [true, "Email is required"],
 		},
-		name: {
+		username: {
 			type: String,
 			required: [true, "Name is required"],
 		},
 		password: {
 			type: String,
-			required: [true, "Password is required"],
+			//required: [true, "Password is required"],
 		},
 		image: {
 			type: String,

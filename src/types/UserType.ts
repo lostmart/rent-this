@@ -3,9 +3,9 @@ import { Document, Schema } from "mongoose"
 // Define the TypeScript type for User extending Document
 interface TUser extends Document {
 	_id: Schema.Types.ObjectId
-	name: string
+	username: string
 	email: string
-	password: string
+	password?: string
 	createdAt?: Date
 	updatedAt?: Date
 	image?: string // Optional field

@@ -25,6 +25,9 @@ type AuthProps = {
 
 const NavBar = () => {
 	const { data: session } = useSession()
+
+	const profileImage = session?.user?.image
+
 	const [isMobileMenuOpen, setMobileMenu] = useState(false)
 	const [isProfileMenuOpen, setProfileMenu] = useState(false)
 	const [providers, setProviders] = useState<AuthProps | Providers | null>(null)
@@ -181,7 +184,9 @@ const NavBar = () => {
 									<span className="sr-only">Open user menu</span>
 									<Image
 										className="h-8 w-8 rounded-full"
-										src={profileDfault}
+										src={profileImage || profileDfault}
+										width={40}
+										height={40}
 										alt="profile picture"
 									/>
 								</button>
