@@ -1,5 +1,5 @@
 type TCar = {
-	_id: string
+	_id?: string
 	owner: string
 	name: string
 	type: string
@@ -19,10 +19,14 @@ type TCar = {
 		monthly?: number
 		nightly?: number
 	}
-	seller_info: object
+	seller_info: {
+		name: string
+		email: string
+		phone: string
+	}
 	images: string[]
 	is_featured: boolean
-	createdAt: string
+	createdAt?: string
 	updatedAt?: string
 }
 
