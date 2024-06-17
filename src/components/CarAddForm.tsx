@@ -33,7 +33,26 @@ const CarAddForm = () => {
 		is_featured: false,
 	})
 
-	const handleChange = () => {}
+	const handleChange = (e: any) => {
+		const { name, value } = e.target
+
+		if (name.includes(".")) {
+			const [outerKey, innerKey] = name.split(".")
+			console.log(outerKey, innerKey)
+			setFields((prevFields) => ({
+				...prevFields,
+				[outerKey]: {
+					...prevFields[outerKey],
+					[innerKey]: value
+				}
+			}))
+		} else {
+			setFields((prevFields) => ({
+				...prevFields,
+				[name]: value
+			}))
+		}
+	}
 	const handleAmenetiesChange = () => {}
 	const handleImageChange = () => {}
 
