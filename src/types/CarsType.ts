@@ -24,7 +24,7 @@ type TCar = {
 		email: string
 		phone: string
 	}
-	images: string[]
+	images: File[]
 	is_featured: boolean
 	createdAt?: string
 	updatedAt?: string

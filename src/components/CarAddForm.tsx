@@ -29,13 +29,15 @@ const CarAddForm = () => {
 			email: "john@gmail.com",
 			phone: "617-555-5555",
 		},
-		images: ["a1.jpg", "a2.jpg", "a3.jpg"],
+		images: [],
 		is_featured: false,
 	})
 
-	const handleChange = (e: any) => {
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target
 
+		// review this
+		// check if nested property
 		if (name.includes(".")) {
 			const [outerKey, innerKey] = name.split(".")
 			console.log(outerKey, innerKey)
@@ -43,18 +45,57 @@ const CarAddForm = () => {
 				...prevFields,
 				[outerKey]: {
 					...prevFields[outerKey],
-					[innerKey]: value
-				}
+					[innerKey]: value,
+				},
 			}))
+			// sinlge value input
 		} else {
 			setFields((prevFields) => ({
 				...prevFields,
-				[name]: value
+				[name]: value,
 			}))
 		}
 	}
-	const handleAmenetiesChange = () => {}
-	const handleImageChange = () => {}
+	const handleAmenetiesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const { value, checked } = e.target
+		const updatedAmeneties = [...fields.amenities]
+
+		if (checked) {
+			// Add value to arrray
+			updatedAmeneties.push(value)
+		} else {
+			// remove value from array
+			const index = updatedAmeneties.indexOf(value)
+			if (index !== -1) {
+				updatedAmeneties.splice(index, 1)
+			}
+		}
+
+		// Update state with update array
+		setFields((prevFields) => ({
+			...prevFields,
+			amenities: updatedAmeneties,
+		}))
+	}
+	const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const { files } = e.target
+
+		// Clone images array
+		const updatedImages = [...fields.images]
+
+		if (files !== null) {
+			for (const file of files) {
+				updatedImages.push(file)
+			}
+		}
+
+		// Update array of images
+		setFields((prevFields) => ({
+			...prevFields,
+			images: updatedImages,
+		}))
+		console.log(fields.images)
+	}
 
 	return (
 		<form>
