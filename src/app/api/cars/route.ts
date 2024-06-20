@@ -19,3 +19,34 @@ export const GET = async () => {
 		})
 	}
 }
+
+//POST /api/cars
+export const POST = async (request: any) => {
+	try {
+		const formData = await request.formData()
+		// access all values from amaneties and images
+		const amaneties = formData.getAll("amenities")
+		const images = formData
+			.getAll("images")
+			.filter((image: File) => image.name != "")
+
+		console.log(amaneties)
+		return new Response(
+			JSON.stringify({
+				msg: "all good !",
+			}),
+			{
+				status: 200,
+			}
+		)
+	} catch (error) {
+		return new Response(
+			JSON.stringify({
+				msg: "failed to add car ...",
+			}),
+			{
+				status: 500,
+			}
+		)
+	}
+}

@@ -1,3 +1,5 @@
+// layout.js
+
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "@/assets/globals.css"
@@ -10,14 +12,14 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata: Metadata = {
 	title: "Rent stuff right now !",
 	description: "This is a page for renting stuff, you know",
-	keywords: "rental, find stuff, do stufff and other stuff",
+	keywords: "rental, find stuff, do stuff and other stuff",
 }
 
 export default function RootLayout({
 	children,
-}: Readonly<{
+}: {
 	children: React.ReactNode
-}>) {
+}) {
 	return (
 		<AuthProvider>
 			<html lang="en">

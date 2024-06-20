@@ -19,7 +19,7 @@ const CarAddForm = () => {
 		beds: 2,
 		baths: 1,
 		square_feet: 1500,
-		amenities: ["Free Parking"],
+		amenities: [],
 		rates: {
 			weekly: 1100,
 			monthly: 4200,
@@ -33,7 +33,8 @@ const CarAddForm = () => {
 		is_featured: false,
 	})
 
-	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+	// added any becasue checking "select from" change makes the fn too bloated
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement> | any) => {
 		const { name, value } = e.target
 
 		// review this
@@ -94,11 +95,10 @@ const CarAddForm = () => {
 			...prevFields,
 			images: updatedImages,
 		}))
-		console.log(fields.images)
 	}
 
 	return (
-		<form>
+		<form action="/api/cars" method="POST" encType="multipart/form-data">
 			<h2 className="text-3xl text-center font-semibold mb-6">Add Property</h2>
 
 			<div className="mb-4">
@@ -547,6 +547,7 @@ const CarAddForm = () => {
 					accept="image/*"
 					multiple
 					onChange={handleImageChange}
+					required
 				/>
 			</div>
 
