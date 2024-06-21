@@ -1,5 +1,6 @@
 import conectDB from "@/utils/db_connection"
 import Car from "@/models/Property"
+import CarClass from "@/classes/Car"
 
 // GET /api/cars
 export const GET = async () => {
@@ -29,8 +30,34 @@ export const POST = async (request: any) => {
 		const images = formData
 			.getAll("images")
 			.filter((image: File) => image.name != "")
+		// Create carData object for database
+		const newCar = new CarClass(
+			"bob",
+			"name test",
+			"sometype",
+			"this is the description",
+			{
+				street: "pertnot",
+				city: "paris",
+				state: "MA",
+				zipcode: "456123",
+			},
+			1,
+			2,
+			32,
+			["kiki", "kiwi"],
+			{
+				name: "bobie",
+				email: "bobie@handomseMe.net",
+				phone: "54456132 021",
+			},
+			{
+				weekly: 4512,
+			},
+			["imag10", "img02"],
+			true
+		)
 
-		console.log(amaneties)
 		return new Response(
 			JSON.stringify({
 				msg: "all good !",

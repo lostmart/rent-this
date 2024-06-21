@@ -1,29 +1,20 @@
+import TLocation from "@/types/Location"
+import TRates from "@/types/RatesType"
+import TSellerInfo from "./SellerInfoType"
+
 type TCar = {
 	_id?: string
 	owner: string
 	name: string
 	type: string
 	description: string
-	location: {
-		street: string
-		city: string
-		state: string
-		zipcode: string
-	}
+	location: TLocation
 	beds: number
 	baths: number
 	square_feet: number
 	amenities: string[]
-	rates: {
-		weekly?: number
-		monthly?: number
-		nightly?: number
-	}
-	seller_info: {
-		name: string
-		email: string
-		phone: string
-	}
+	rates: TRates
+	seller_info: TSellerInfo
 	images: File[]
 	is_featured: boolean
 	createdAt?: string
