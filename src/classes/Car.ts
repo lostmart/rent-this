@@ -18,8 +18,8 @@ class CarClass implements TCar {
 	public seller_info: TSellerInfo
 	public images: File[]
 	public is_featured: boolean
-	readonly createdAt?: string
-	public updatedAt?: string
+	// readonly createdAt?: string
+	// public updatedAt?: string
 
 	constructor(
 		owner: string,

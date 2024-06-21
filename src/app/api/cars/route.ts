@@ -1,6 +1,7 @@
 import conectDB from "@/utils/db_connection"
 import Car from "@/models/Property"
 import CarClass from "@/classes/Car"
+import { getSessionUser } from "@/utils/getSessionUser"
 
 // GET /api/cars
 export const GET = async () => {
@@ -24,6 +25,23 @@ export const GET = async () => {
 //POST /api/cars
 export const POST = async (request: any) => {
 	try {
+		await conectDB()
+
+		const sessionUser = await getSessionUser()
+
+		if (!sessionUser || !sessionUser.userId) {
+			return new Response(
+				JSON.stringify({
+					msg: "Unauthozized",
+				}),
+				{
+					status: 401,
+				}
+			)
+		}
+
+		const { userId } = sessionUser
+
 		const formData = await request.formData()
 
 		// access all values from amenities and images
@@ -33,7 +51,7 @@ export const POST = async (request: any) => {
 			.filter((image: File) => image.name != "")
 		// Store formData from
 		const formattedData = {
-			owner: "bobi",
+			owner: userId,
 			name: formData.get("name"),
 			type: formData.get("type"),
 			description: formData.get("description"),
@@ -57,35 +75,26 @@ export const POST = async (request: any) => {
 				email: formData.get("seller_info.email"),
 				phone: formData.get("seller_info.phone"),
 			},
+			is_featured: false,
 		}
-		console.log(formattedData)
 		// Create carData object for database
 		const newCar = new CarClass(
-			"bob",
-			"name test",
-			"sometype",
-			"this is the description",
-			{
-				street: "pertnot",
-				city: "paris",
-				state: "MA",
-				zipcode: "456123",
-			},
-			1,
-			2,
-			32,
-			["kiki", "kiwi"],
-			{
-				name: "bobie",
-				email: "bobie@handomseMe.net",
-				phone: "54456132 021",
-			},
-			{
-				weekly: 4512,
-			},
-			[],
-			true
+			formattedData.owner,
+			formattedData.name,
+			formattedData.type,
+			formattedData.description,
+			formattedData.location,
+			formattedData.beds,
+			formattedData.baths,
+			formattedData.square_feet,
+			formattedData.amenities,
+			formattedData.seller_info,
+			formattedData.rates,
+			images,
+			formattedData.is_featured
 		)
+
+		console.log(newCar)
 
 		return new Response(
 			JSON.stringify({
