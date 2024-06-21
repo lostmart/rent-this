@@ -41,7 +41,7 @@ const CarAddForm = () => {
 		// check if nested property
 		if (name.includes(".")) {
 			const [outerKey, innerKey] = name.split(".")
-			console.log(outerKey, innerKey)
+			// console.log(outerKey, innerKey)
 			setFields((prevFields) => ({
 				...prevFields,
 				[outerKey]: {
@@ -492,7 +492,7 @@ const CarAddForm = () => {
 				<input
 					type="text"
 					id="seller_name"
-					name="seller_info.name."
+					name="seller_info.name"
 					className="border rounded w-full py-2 px-3"
 					placeholder="Name"
 					value={fields.seller_info.name}
