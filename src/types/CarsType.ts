@@ -15,7 +15,7 @@ type TCar = {
 	amenities: string[]
 	rates: TRates
 	seller_info: TSellerInfo
-	images: File[]
+	images: File[] | string[]
 	is_featured: boolean
 	createdAt?: string
 	updatedAt?: string

@@ -75,6 +75,7 @@ export const POST = async (request: any) => {
 				email: formData.get("seller_info.email"),
 				phone: formData.get("seller_info.phone"),
 			},
+			images: ["test01", "test02"],
 			is_featured: false,
 		}
 		// Create carData object for database
@@ -90,20 +91,26 @@ export const POST = async (request: any) => {
 			formattedData.amenities,
 			formattedData.seller_info,
 			formattedData.rates,
-			images,
+			formattedData.images,
 			formattedData.is_featured
 		)
 
-		console.log(newCar)
+		// Save to mongoDB
+		const savedCar = new Car(newCar)
+		await savedCar.save()
 
-		return new Response(
-			JSON.stringify({
-				msg: "all good !",
-			}),
-			{
-				status: 200,
-			}
+		return Response.redirect(
+			`${process.env.NEXTAUTH_URL}/carsPage/${savedCar._id}`
 		)
+
+		// return new Response(
+		// 	JSON.stringify({
+		// 		msg: "all good !",
+		// 	}),
+		// 	{
+		// 		status: 200,
+		// 	}
+		// )
 	} catch (error) {
 		return new Response(
 			JSON.stringify({

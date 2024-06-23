@@ -16,7 +16,7 @@ class CarClass implements TCar {
 	public amenities: string[]
 	public rates: TRates
 	public seller_info: TSellerInfo
-	public images: File[]
+	public images: File[] | string[]
 	public is_featured: boolean
 	// readonly createdAt?: string
 	// public updatedAt?: string
@@ -33,7 +33,7 @@ class CarClass implements TCar {
 		amenities: string[],
 		seller_info: TSellerInfo,
 		rates: TRates,
-		images: File[],
+		images: File[] | string[],
 		is_featured: boolean
 		// createdAt?: string,
 		// updatedAt?: string,
